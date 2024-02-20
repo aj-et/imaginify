@@ -13,6 +13,9 @@ Next JS
 ShadCN components installed
 npx shadcn-ui@latest add button
 npx shadcn-ui@latest add sheet
+npx shadcn-ui@latest add form
+npx shadcn-ui@latest add input
+npx shadcn-ui@latest add select
 
 mongoDB and mongoose
 
