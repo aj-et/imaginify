@@ -29,3 +29,5 @@ svix
 npm install next-cloudinary
 
 added lodash for a better search query
+
+npm i stripe @stripe/stripe-js
