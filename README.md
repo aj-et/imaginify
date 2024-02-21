@@ -27,3 +27,5 @@ webhooks
 svix
 
 npm install next-cloudinary
+
+added lodash for a better search query

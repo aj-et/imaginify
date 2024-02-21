@@ -6,13 +6,14 @@ import { handleError } from "../utils";
 import User from "../database/models/user.model";
 import Image from "../database/models/image.model";
 import { redirect } from "next/navigation";
+import { escapeRegExp } from "lodash";
 
 import { v2 as cloudinary } from 'cloudinary';
 
 const populateUser = (query: any) => query.populate({
     path: "author",
     model: User,
-    select: "_id firstName lastName"
+    select: "_id firstName lastName clerkId"
 })
 
 // ADD IMAGE
@@ -58,7 +59,7 @@ export async function updateImage({ image, userId, path }: UpdateImageParams) {
 
         revalidatePath(path);
 
-        return JSON.parse(JSON.stringify(updateImage));
+        return JSON.parse(JSON.stringify(updatedImage));
     } catch (error) {
         handleError(error)
     }
@@ -111,7 +112,9 @@ export async function getAllImages({ limit = 9, page = 1, searchQuery = '' }: {
         let expression = 'folder=imaginify'
 
         if(searchQuery) {
-            expression += ` AND ${searchQuery}`
+            const sanitizedSearchQuery = escapeRegExp(searchQuery);
+            expression += `AND ${sanitizedSearchQuery}`;
+            // expression += ` AND ${searchQuery}`
         }
 
         const { resources } = await cloudinary.search
